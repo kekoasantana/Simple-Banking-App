@@ -28,11 +28,21 @@ public class Branch {
         return false;
     }
 
-    // Makes sure customer exists in the branch and then adds a transaction for that customer
-    public boolean addCustomerTransaction(String customerName, double amount) {
+    // Makes sure customer exists in the branch and then makes a deposit for that customer
+    public boolean makeCustomerDeposit(String customerName, double amount) {
         Customer existingCustomer = findCustomer(customerName);
         if (existingCustomer != null) {
-            existingCustomer.addTransaction(amount);
+            existingCustomer.makeDeposit(amount);
+            return true;
+        }
+        return false;
+    }
+
+    // Makes sure customer exists in the branch and then makes a withdrawal for that customer
+    public boolean makeCustomerWithdrawal(String customerName, double amount) {
+        Customer existingCustomer = findCustomer(customerName);
+        if (existingCustomer != null) {
+            existingCustomer.makeWithdrawal(amount);
             return true;
         }
         return false;
@@ -40,8 +50,7 @@ public class Branch {
 
     // finds a customer and returns the customer location
     private Customer findCustomer(String customerName) {
-        for (int i =0; i<this.customers.size(); i++) {
-            Customer checkedCustomer = this.customers.get(i);
+        for (Customer checkedCustomer : this.customers) {
             if (checkedCustomer.getName().equals(customerName)) {
                 return checkedCustomer;
             }

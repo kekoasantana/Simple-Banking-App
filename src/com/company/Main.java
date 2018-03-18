@@ -24,6 +24,20 @@ package com.company;
  * add data validation by checking if it exists or does not exist
  */
 
+/**
+ * Up next:
+ *
+ * create scanner class to get input from user
+ * create while loop to make this like an atm
+ * this is all from the point of view from a bank teller so customer cannot see
+ * that is why the teller can see the list of branches and bank users
+ * ask what action they would like to perform:
+ * 1. make deposit
+ * 2. make withdrawal
+ * 3. show balance
+ * 4. list customers within bank
+ */
+
 public class Main {
 
     public static void main(String[] args) {
@@ -32,20 +46,13 @@ public class Main {
 
         bank.addBranch("Wahiawa");
 
-        bank.addCustomer("Kekoa", "Wahiawa", 50.50);
-        bank.addCustomer("Jim", "Wahiawa", 34.75);
-        bank.addCustomer("Kekoa", "Wahiawa", 42.50);
-        bank.addCustomer("Bob", "Honolulu", 52.50);
+        bank.addCustomer("Kekoa", "Wahiawa", 200.0);
 
+        bank.makeCustomerDeposit("Kekoa", "Wahiawa", 250.0);
 
-        bank.addBranch("Pearl City");
-        bank.addCustomer("Henry", "Pearl City", 56.83);
+        bank.makeCustomerWithdrawal("Kekoa", "Wahiawa", 150.0);
+        bank.makeCustomerWithdrawal("Kekoa", "Wahiawa", 350.0);
 
-        bank.addCustomerTransaction("Kekoa", "Wahiawa", 43.54);
-        bank.addCustomerTransaction("Jim", "Wahiawa", 33.56);
-
-        bank.listCustomers("Wahiawa", true);
-        bank.listCustomers("Honolulu", false);
-        bank.listCustomers("Pearl City", false);
+        bank.listCustomers("Wahiawa", true, true);
     }
 }
