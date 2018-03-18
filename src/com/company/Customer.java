@@ -21,7 +21,7 @@ public class Customer {
     }
 
     public void makeWithdrawal(double amount) {
-        if (amount - this.balance < 0) {
+        if (amount - this.balance < 0) {            // makes sure that balance does not go below zero
             this.withdrawals.add(amount);
             this.balance -= amount;
         } else {
