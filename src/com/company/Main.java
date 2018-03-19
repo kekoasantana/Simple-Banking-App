@@ -1,4 +1,5 @@
 package com.company;
+import java.util.Scanner;
 
 /**
  * creating a simple banking app
@@ -32,27 +33,69 @@ package com.company;
  * this is all from the point of view from a bank teller so customer cannot see
  * that is why the teller can see the list of branches and bank users
  * ask what action they would like to perform:
- * 1. make deposit
- * 2. make withdrawal
- * 3. show balance
- * 4. list customers within bank
+ * 1. make new customer account
+ * 2. make new branch
+ * 3. make deposit
+ * 4. make withdrawal
+ * 5. list customers within bank
+ * 6. exit
  */
 
 public class Main {
 
+    public static Scanner in = new Scanner(System.in);
+    public static int response;
+
     public static void main(String[] args) {
+        boolean loop = true;
+        Bank bank = new Bank("First Hawaiian Bank");
+        Branch branch = new Branch("Wahiawa");
 
-        Bank bank = new Bank("Bank of Hawaii");
+        while (loop) {
+            System.out.printf("What function would you like to perform?\n" +
+                    "1. Make new customer account\n" +
+                    "2. Make new branch within Bank\n" +
+                    "3. Make a deposit\n" +
+                    "4. Make a withdrawal\n" +
+                    "5. List customers within bank\n" +
+                    "6. Exit\n");
 
-        bank.addBranch("Wahiawa");
+            response = in.nextInt();
+            in.nextLine();
+            switch (response) {
+                case 1:
+                    System.out.println("Enter customer name, branch name and then initial deposit.");
+                    bank.addCustomer(in.nextLine(), in.nextLine(), in.nextDouble());
+                    in.nextLine();
+                    break;
+                case 2:
+                    System.out.println("Enter branch name.");
+                    bank.addBranch(in.nextLine());
+                    break;
+                case 3:
+                    System.out.println("Enter customer name, branch name and then deposit amount.");
+                    bank.makeCustomerDeposit(in.nextLine(), in.nextLine(), in.nextDouble());
+                    in.nextLine();
+                    break;
+                case 4:
+                    System.out.println("Enter customer name, branch name and then withdrawal amount.");
+                    bank.makeCustomerWithdrawal(in.nextLine(), in.nextLine(), in.nextDouble());
+                    in.nextLine();
+                    break;
+                case 5:
+                    System.out.println("Enter branch name, then enter true or false " +
+                            "if you want to see customer transactions and enter true or false again " +
+                            "if you want to see customer balance.");
+                    bank.listCustomers(in.nextLine(), in.nextBoolean(), in.nextBoolean());
+                    break;
+                case 6:
+                    System.out.println("Exiting program.");
+                    loop = false;
+                    break;
+                default:
+                    System.out.println("Invalid input");
 
-        bank.addCustomer("Kekoa", "Wahiawa", 200.0);
-
-        bank.makeCustomerDeposit("Kekoa", "Wahiawa", 250.0);
-
-        bank.makeCustomerWithdrawal("Kekoa", "Wahiawa", 150.0);
-        bank.makeCustomerWithdrawal("Kekoa", "Wahiawa", 350.0);
-
-        bank.listCustomers("Wahiawa", true, true);
+            }
+        }
     }
 }
